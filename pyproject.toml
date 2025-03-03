@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "dhis2py"
+name = "dhis2api"
 version = "0.1.0"
 description = ""
 authors = ["Charlie Zhang <cz317@georgetown.edu>"]
