@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dhis2api"
-version = "0.1.0"
+version = "0.1.1"
 description = "A simple Python Wrapper for downloading DHIS2 server data."
 authors = ["Charlie Zhang <charlie.cxzhang@gmail.com>"]
 readme = "README.md"
