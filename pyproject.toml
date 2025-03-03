@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "dhis2api"
 version = "0.1.0"
-description = ""
-authors = ["Charlie Zhang <cz317@georgetown.edu>"]
+description = "A simple Python Wrapper for downloading DHIS2 server data."
+authors = ["Charlie Zhang <charlie.cxzhang@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = ">=3.11,<4.0"
 aiohttp = "^3.11.2"
 aiofiles = "^24.1.0"
 pandas = "^2.2.3"
