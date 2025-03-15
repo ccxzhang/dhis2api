@@ -1,6 +1,6 @@
 # Book settings
 title: "DHIS2API"
-author: Charlie Zhang
+author: "Charlie Zhang"
 only_build_toc_files: false
 
 repository:
@@ -14,8 +14,8 @@ html:
   use_edit_page_button: true
   use_repository_button: true
   use_issues_button: true
-  baseurl: https://github.com/ccxzhang/dhis2api
-  html_favicon: "images/favicon.ico"
+  baseurl: https://ccxzhang.github.io/dhis2api  
+  favicon: "images/favicon.ico"
 
 # Execution settings
 execute:
@@ -23,10 +23,14 @@ execute:
 
 # Sphinx settings
 sphinx:
+  extra_extensions:
+    - sphinx.ext.autodoc
+    - sphinxcontrib.apidoc
+
   config:
-    html_show_copyright: false
-    html_last_updated_fmt: "%b %d, %Y"
+    autodoc_typehints: "description"
     apidoc_module_dir: "../dhis2api"
-    extra_extensions:
-      - "sphinx.ext.napoleon"
-      - "sphinxcontrib.apidoc"
+    apidoc_output_dir: "api"
+    apidoc_excluded_paths:
+      - "tests"
+    apidoc_separate_modules: true

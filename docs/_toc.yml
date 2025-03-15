@@ -1,11 +1,6 @@
-# Table of Contents (toc.yml)
 format: jb-book
-root: "README.md"
+root: README
 
-parts:
-- caption: API Reference
-  chapters:
-      - file: api/dhis2api.rst
-- caption: "Examples"
-  chapters:
-      - file: docs/example.ipynb
+chapters:
+  - file: api/modules
+  - file: example.ipynb
