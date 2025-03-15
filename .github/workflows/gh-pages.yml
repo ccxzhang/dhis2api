@@ -1,4 +1,5 @@
 name: docs
+
 on:
   push:
     branches:
@@ -6,43 +7,37 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
-  build-book:
+  build-and-deploy-book:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
         with:
           python-version: 3.11
           cache: "pip"
-      
-      - name: Install Poetry & Dependencies
+
+      - name: Install Poetry and Dependencies
         run: |
           pip install poetry
           poetry config virtualenvs.create false
           poetry install --extras "docs" --no-interaction
-      
-      - name: Generate API Docs (using sphinx-apidoc)
+
+      - name: Generate API Docs (with sphinx-apidoc)
         run: |
           sphinx-apidoc -o docs/api dhis2api
-          
+
       - name: Build Jupyter Book
         run: |
           jupyter-book build docs --path-output _build/html
-      
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: "_build/html"
 
-  deploy-book:
-    needs: build-book
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy built site to gh-pages branch 🚀
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _build/html
+          publish_branch: gh-pages
