@@ -33,11 +33,11 @@ jobs:
 
       - name: Build Jupyter Book
         run: |
-          jupyter-book build docs --path-output _build/html
+          jupyter-book build docs
 
       - name: Deploy built site to gh-pages branch 🚀
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _build/html
+          publish_dir: docs/_build/html
           publish_branch: gh-pages
