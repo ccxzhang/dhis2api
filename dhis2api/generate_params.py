@@ -1,89 +1,147 @@
 # generate_params.py
 import itertools
+from typing import List, Optional, Union
 from .param_formatter import ParamFormatter
 from .indicator_loader import IndicatorLoader
-from typing import List, Optional, Union
+
 
 class GenerateParams:
     """
+    A utility class to generate API request parameters for DHIS2 data extraction.
     """
+
     def __init__(
         self,
         country: str,
         dates: List[str],
         level: str,
-        category: List[str] = "core",
+        category: List[str] = ["core"],
         indicators: Optional[Union[List[str], None]] = None,
         disaggregate: Optional[str] = None,
-        json_filepath: str = None,
+        json_filepath: Optional[str] = None,
     ):
         """
-        Initializes the parameters needed for API requests.
+        Initializes the parameter generator.
 
-        Args:
-          country (str): The country to request data for.
-          dates (list): A list of dates (in YYYYMM or YYYYQQ format).
-          level (str): The level to be used in the parameters.
-          category (list): List of categories (defaults to ['core']).
-          indicators (list | None): List of indicators, if any.
-          disaggregate (str | None): The disaggregate dimension for DHIS data.
-          json_filepath (str): Path to the JSON file for indicators.
+        Parameters
+        ----------
+        country : str
+            Country code or name.
+        dates : List[str]
+            A list of periods (e.g., YYYYMM or YYYYQ).
+        level : str
+            Organizational unit level to query.
+        category : List[str], default=["core"]
+            Data categories to query.
+        indicators : Optional[List[str]]
+            List of indicators to fetch; if None, loaded from file.
+        disaggregate : Optional[str]
+            Disaggregation dimension to include.
+        json_filepath : Optional[str]
+            Path to a JSON file with indicator definitions.
         """
         self.country = country.lower()
         self.category = category
-        self.dates = ParamFormatter.format_params(dates)
         self.level = level
-        self.disaggregate = disaggregate
-        self.disaggregate_elems = ParamFormatter.format_disaggregate_elems(self.disaggregate)
 
-        # Use the provided list of indicators or load them from the file if not provided
+        self.dates = ParamFormatter.format_params(dates)
+        self.disaggregate = disaggregate
+        self.disaggregate_elems = ParamFormatter.format_disaggregate_elems(disaggregate)
+
+        # Format indicators or load from file
         self.indicators = (
             ParamFormatter.format_params(indicators)
             if indicators
-            else IndicatorLoader(self.country, self.category, json_filepath).load_indicators_from_file()
+            else IndicatorLoader(self.country, category, json_filepath).load_indicators_from_file()
         )
 
-        # Calculate combinations and set dimensions
         self.combinations = len(dates) * len(self.indicators.split(";"))
         self.dimensions = [self.level, self.dates, self.indicators]
-        self.rows_elements = ['ou', 'pe', 'dx']
+        self.rows_elements = ["ou", "pe", "dx"]
 
-    def split_params(self, situation: str) -> itertools.product:
-        """Splits parameters into combinations based on the situation."""
+    def split_params(
+        self,
+        situation: Optional[str] = None,
+        chunk_size: int = 12
+    ) -> itertools.product:
+        """
+        Generates parameter combinations based on a given strategy.
+
+        Parameters
+        ----------
+        situation : Optional[str], default=None
+            Strategy for splitting combinations:
+            - "standard": One request with all periods.
+            - "one_by_one": Individual combinations per period.
+            - "chunked": Group periods into chunks of `chunk_size`.
+        chunk_size : int, default=12
+            Number of periods per chunk when using "chunked" strategy.
+
+        Returns
+        -------
+        itertools.product
+            Cartesian product of parameter combinations.
+        """
         ou_items = [self.level]
         pe_items = self.dates.split(";")
         dx_items = self.indicators.split(";")
 
-        if situation == "nigeria":
-            return itertools.product(ou_items, pe_items, dx_items)
-        elif situation == "avoid_crash":
-            pe_12_items = [
-                ";".join(pe_items[i:i + 12]) for i in range(0, len(pe_items), 12)
-            ]
-            return itertools.product(ou_items, pe_12_items, dx_items)
-        return itertools.product(ou_items, pe_items, dx_items)
+        strategies = {
+            "standard": lambda: itertools.product(
+                ou_items, [";".join(pe_items)], dx_items
+            ),
+            "one_by_one": lambda: itertools.product(
+                ou_items, pe_items, dx_items
+            ),
+            "chunked": lambda: itertools.product(
+                ou_items,
+                [";".join(pe_items[i:i + chunk_size]) for i in range(0, len(pe_items), chunk_size)],
+                dx_items
+            )
+        }
+
+        strategy = strategies.get(situation, strategies["standard"])
+        return strategy()
 
     def get_params(self) -> List[dict]:
-        """Generates parameters for API requests based on the current configuration."""
-        situation = "nigeria" if self.country in ["nigeria", "ghana"] else "avoid_crash" if self.combinations >= 120 else None
-        combo = self.split_params(situation) if situation else [self.dimensions]
+        """
+        Generates a list of parameter dictionaries for API requests.
+
+        Automatically selects a splitting strategy based on data volume.
+
+        Returns
+        -------
+        List[dict]
+            List of parameter dictionaries for use in requests.
+        """
+        # Determine strategy dynamically if not set explicitly
+        if self.country in ["nigeria", "ghana"]:
+            strategy = "one_by_one"
+        elif self.combinations >= 120:
+            strategy = "chunked"
+        else:
+            strategy = "standard"
+
+        combinations = self.split_params(situation=strategy)
 
         params = []
-        for ou, pe, dx in combo:
-            dim = [f"ou:{ou}", f"pe:{pe}", f"dx:{dx}"]
-            rows = self.rows_elements[:]
+        for ou, pe, dx in combinations:
+            dimensions = [f"ou:{ou}", f"pe:{pe}", f"dx:{dx}"]
+            rows = self.rows_elements.copy()
+
             if self.disaggregate:
-                dim.extend(self.disaggregate)
+                dimensions.append(self.disaggregate)
                 rows.insert(3, self.disaggregate_elems)
 
             param = {
-                "dimension": dim,
-                'displayProperty': 'NAME',
-                'ignoreLimit': 'TRUE',
-                'hierarchyMeta': 'TRUE',
-                'hideEmptyRows': 'TRUE',
-                'showHierarchy': 'TRUE',
-                'rows': ";".join(rows)
+                "dimension": dimensions,
+                "displayProperty": "NAME",
+                "ignoreLimit": "TRUE",
+                "hierarchyMeta": "TRUE",
+                "hideEmptyRows": "TRUE",
+                "showHierarchy": "TRUE",
+                "rows": ";".join(rows),
             }
             params.append(param)
+
         return params

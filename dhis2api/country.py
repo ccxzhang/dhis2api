@@ -13,6 +13,45 @@ logger = logging.getLogger(__name__)
 
 
 class Country:
+    """
+    A class for fetching and storing country-level data from an API.
+
+    Attributes
+    ----------
+    base_url : str
+        Base URL of the API endpoint.
+    country : str
+        Country code or identifier.
+    dates : str
+        Date range or date parameter for the data request.
+    level : str, optional
+        Geographic or administrative level for data extraction.
+    folderpath : str, optional
+        Directory path to save downloaded data.
+    category : str, default "core"
+        Data category to request.
+    indicators : list, optional
+        List of indicator codes to fetch.
+    disaggregate : list, optional
+        List of dimensions to disaggregate by.
+    auth : tuple, optional
+        Authentication credentials for the API (username, password).
+    json_filepath : str, optional
+        Path to JSON configuration file for parameters.
+
+    Methods
+    -------
+    save_empty_file(idx: int):
+        Saves an empty CSV file if no data is fetched or on initial request.
+    request_and_save():
+        Sends API requests for all parameters and saves responses to CSV.
+    handle_successful_request(r, idx: int, today: str):
+        Processes and saves data for successful API responses.
+    handle_failed_request(r, idx: int, param):
+        Logs and handles failed API requests.
+    post_download_examine():
+        Validates downloaded data against requested indicators.
+    """
     def __init__(
         self,
         base_url: str,
@@ -21,7 +60,7 @@ class Country:
         level: str = None,
         folderpath: str = None,
         category="core",
-        indicators=None,
+        indicators: list = None,
         disaggregate: List = None,
         auth: tuple = None,
         json_filepath: str = None
@@ -40,7 +79,7 @@ class Country:
         self.auth = auth
         self.params = self.generate_params.get_params()
         self.disaggregate = disaggregate
-        self.disaggregate_name = "".join(disaggregate)
+        self.disaggregate_name = "".join(disaggregate) if disaggregate else ""
         self.folderpath = folderpath if folderpath else "./"
         self.filepath = None
         self.headers = None
