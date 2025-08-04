@@ -393,7 +393,17 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dhis2api">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dhis2api">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country"><code class="docutils literal notranslate"><span class="pre">Country</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country.handle_failed_request"><code class="docutils literal notranslate"><span class="pre">Country.handle_failed_request()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country.handle_successful_request"><code class="docutils literal notranslate"><span class="pre">Country.handle_successful_request()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country.post_download_examine"><code class="docutils literal notranslate"><span class="pre">Country.post_download_examine()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country.request_and_save"><code class="docutils literal notranslate"><span class="pre">Country.request_and_save()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country.save_empty_file"><code class="docutils literal notranslate"><span class="pre">Country.save_empty_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -450,6 +460,123 @@ document.write(`
 </section>
 <section id="module-dhis2api">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dhis2api" title="Permalink to this heading">#</a></h2>
+<p>Convenience imports and package metadata for <a class="reference internal" href="#module-dhis2api" title="dhis2api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dhis2api</span></code></a>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="dhis2api.Country">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dhis2api.</span></span><span class="sig-name descname"><span class="pre">Country</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folderpath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'core'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indicators</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disaggregate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_filepath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dhis2api.Country" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class for fetching and storing country-level data from an API.</p>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this heading">#</a></h3>
+<dl class="simple">
+<dt>base_url<span class="classifier">str</span></dt><dd><p>Base URL of the API endpoint.</p>
+</dd>
+<dt>country<span class="classifier">str</span></dt><dd><p>Country code or identifier.</p>
+</dd>
+<dt>dates<span class="classifier">str</span></dt><dd><p>Date range or date parameter for the data request.</p>
+</dd>
+<dt>level<span class="classifier">str, optional</span></dt><dd><p>Geographic or administrative level for data extraction.</p>
+</dd>
+<dt>folderpath<span class="classifier">str, optional</span></dt><dd><p>Directory path to save downloaded data.</p>
+</dd>
+<dt>category<span class="classifier">str, default “core”</span></dt><dd><p>Data category to request.</p>
+</dd>
+<dt>indicators<span class="classifier">list, optional</span></dt><dd><p>List of indicator codes to fetch.</p>
+</dd>
+<dt>disaggregate<span class="classifier">list, optional</span></dt><dd><p>List of dimensions to disaggregate by.</p>
+</dd>
+<dt>auth<span class="classifier">tuple, optional</span></dt><dd><p>Authentication credentials for the API (username, password).</p>
+</dd>
+<dt>json_filepath<span class="classifier">str, optional</span></dt><dd><p>Path to JSON configuration file for parameters.</p>
+</dd>
+</dl>
+</section>
+<section id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this heading">#</a></h3>
+<dl class="simple">
+<dt>save_empty_file(idx: int):</dt><dd><p>Saves an empty CSV file if no data is fetched or on initial request.</p>
+</dd>
+<dt>request_and_save():</dt><dd><p>Sends API requests for all parameters and saves responses to CSV.</p>
+</dd>
+<dt>handle_successful_request(r, idx: int, today: str):</dt><dd><p>Processes and saves data for successful API responses.</p>
+</dd>
+<dt>handle_failed_request(r, idx: int, param):</dt><dd><p>Logs and handles failed API requests.</p>
+</dd>
+<dt>post_download_examine():</dt><dd><p>Validates downloaded data against requested indicators.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="dhis2api.Country.handle_failed_request">
+<span class="sig-name descname"><span class="pre">handle_failed_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dhis2api.Country.handle_failed_request" title="Permalink to this definition">#</a></dt>
+<dd><p>Handles a failed API request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dhis2api.Country.handle_successful_request">
+<span class="sig-name descname"><span class="pre">handle_successful_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">today</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dhis2api.Country.handle_successful_request" title="Permalink to this definition">#</a></dt>
+<dd><p>Handle a successful API request and save the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>idx</strong> (<em>int</em>) – </p></li>
+<li><p><strong>today</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dhis2api.Country.post_download_examine">
+<span class="sig-name descname"><span class="pre">post_download_examine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dhis2api.Country.post_download_examine" title="Permalink to this definition">#</a></dt>
+<dd><p>Checks the differences between specified and downloaded indicators.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dhis2api.Country.request_and_save">
+<span class="sig-name descname"><span class="pre">request_and_save</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dhis2api.Country.request_and_save" title="Permalink to this definition">#</a></dt>
+<dd><p>Requests data from the API and saves it to a CSV file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dhis2api.Country.save_empty_file">
+<span class="sig-name descname"><span class="pre">save_empty_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dhis2api.Country.save_empty_file" title="Permalink to this definition">#</a></dt>
+<dd><p>Saves an empty CSV file if required.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_url</strong> (<em>str</em>) – </p></li>
+<li><p><strong>country</strong> (<em>str</em>) – </p></li>
+<li><p><strong>dates</strong> (<em>str</em>) – </p></li>
+<li><p><strong>level</strong> (<em>str</em>) – </p></li>
+<li><p><strong>folderpath</strong> (<em>str</em>) – </p></li>
+<li><p><strong>indicators</strong> (<em>list</em>) – </p></li>
+<li><p><strong>disaggregate</strong> (<em>List</em>) – </p></li>
+<li><p><strong>auth</strong> (<em>tuple</em>) – </p></li>
+<li><p><strong>json_filepath</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -518,7 +645,17 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dhis2api">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dhis2api">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country"><code class="docutils literal notranslate"><span class="pre">Country</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country.handle_failed_request"><code class="docutils literal notranslate"><span class="pre">Country.handle_failed_request()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country.handle_successful_request"><code class="docutils literal notranslate"><span class="pre">Country.handle_successful_request()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country.post_download_examine"><code class="docutils literal notranslate"><span class="pre">Country.post_download_examine()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country.request_and_save"><code class="docutils literal notranslate"><span class="pre">Country.request_and_save()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country.save_empty_file"><code class="docutils literal notranslate"><span class="pre">Country.save_empty_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
