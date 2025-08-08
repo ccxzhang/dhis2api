@@ -18,7 +18,7 @@ class GenerateParams:
         category: List[str] = ["core"],
         indicators: Optional[Union[List[str], None]] = None,
         disaggregate: Optional[str] = None,
-        json_filepath: Optional[str] = None,
+        idfilepath: Optional[str] = None,
     ):
         """
         Initializes the parameter generator.
@@ -37,8 +37,8 @@ class GenerateParams:
             List of indicators to fetch; if None, loaded from file.
         disaggregate : Optional[str]
             Disaggregation dimension to include.
-        json_filepath : Optional[str]
-            Path to a JSON file with indicator definitions.
+        idfilepath : Optional[str]
+            Path to an excel file with indicator definitions.
         """
         self.country = country.lower()
         self.category = category
@@ -52,7 +52,7 @@ class GenerateParams:
         self.indicators = (
             ParamFormatter.format_params(indicators)
             if indicators
-            else IndicatorLoader(self.country, category, json_filepath).load_indicators_from_file()
+            else IndicatorLoader(self.country, category, idfilepath).load_indicators_from_file()
         )
 
         self.combinations = len(dates) * len(self.indicators.split(";"))

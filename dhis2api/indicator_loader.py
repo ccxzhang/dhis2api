@@ -15,7 +15,7 @@ class IndicatorLoader:
         The country name (lowercased) to filter indicators.
     category_str : str
         Pipe-separated string of categories for filtering.
-    json_filepath : str
+    idfilepath : str
         Path to the Excel file containing indicator definitions.
     column : str
         Column name used for category filtering (default: "category_old").
@@ -31,7 +31,7 @@ class IndicatorLoader:
         self,
         country: str,
         category: list,
-        json_filepath: str,
+        idfilepath: str,
         column: str = None
     ):
         """
@@ -43,14 +43,14 @@ class IndicatorLoader:
             Country code or name to filter indicators.
         category : list
             List of categories used to filter indicators.
-        json_filepath : str
+        idfilepath : str
             Path to the Excel configuration file with indicators.
         column : str, optional
             Column name for category filtering (defaults to "category_old").
         """
         self.country = country.lower()
         self.category_str = "|".join(category)
-        self.json_filepath = json_filepath
+        self.idfilepath = idfilepath
         self.column = column or "category_old"
 
     def load_indicators_from_file(self) -> str:
@@ -81,9 +81,9 @@ class IndicatorLoader:
             If no indicators are found after filtering.
         """
         try:
-            ind_df = pd.read_excel(self.json_filepath)
+            ind_df = pd.read_excel(self.idfilepath)
         except FileNotFoundError:
-            raise FileNotFoundError(f"Indicator file not found: {self.json_filepath}")
+            raise FileNotFoundError(f"Indicator file not found: {self.idfilepath}")
 
         required_columns = {"id", self.column, "country"}
         missing = required_columns - set(ind_df.columns)

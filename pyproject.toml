@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dhis2api"
-version = "0.1.2"
+version = "0.2.1"
 description = "A simple Python Wrapper for downloading DHIS2 server data."
 authors = ["Charlie Zhang <charlie.cxzhang@gmail.com>"]
 readme = "README.md"
@@ -15,6 +15,7 @@ openpyxl = "^3.1.5"
 docutils = {version = "0.17.1", optional = true}
 jupyter-book = {version = ">=0.15.1", optional = true}
 sphinxcontrib-apidoc = {version = ">=0.4.0,<1", optional = true}
+tqdm = "^4.67.1"
 
 [tool.poetry.extras]
 docs = ["docutils", "jupyter-book", "sphinxcontrib-apidoc"]
