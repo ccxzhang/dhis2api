@@ -575,57 +575,121 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">SLAuth</span> <span class="o">=</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SLUsername&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SLPassword&quot;</span><span class="p">))</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">country_obj</span> <span class="o">=</span> <span class="n">Country</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s2">&quot;sierraleone&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>                       <span class="n">base_url</span><span class="o">=</span> <span class="s1">&#39;https://sl.dhis2.org/hmis/api/29/analytics.json?&#39;</span><span class="p">,</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                       <span class="n">dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;202201&quot;</span><span class="p">],</span> <span class="n">level</span><span class="o">=</span><span class="s2">&quot;LEVEL-5&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>                       <span class="n">auth</span><span class="o">=</span><span class="n">SLAuth</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>                       <span class="n">idfilepath</span><span class="o">=</span><span class="n">json_fp</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">country_obj</span><span class="o">.</span><span class="n">request_and_save</span><span class="p">()</span>
-
-<span class="nn">File /opt/homebrew/lib/python3.11/site-packages/dhis2api/country.py:95,</span> in <span class="ni">Country.__init__</span><span class="nt">(self, base_url, country, dates, level, folderpath, category, indicators, disaggregate, auth, idfilepath, max_workers)</span>
-<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">81</span>     <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">82</span>     <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">92</span>     <span class="n">max_workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">93</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">94</span>     <span class="bp">self</span><span class="o">.</span><span class="n">country</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">country</span>
-<span class="ne">---&gt; </span><span class="mi">95</span>     <span class="bp">self</span><span class="o">.</span><span class="n">generate_params</span> <span class="o">=</span> <span class="n">GenerateParams</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">96</span>         <span class="n">country</span><span class="o">=</span><span class="n">country</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">97</span>         <span class="n">dates</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">98</span>         <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">99</span>         <span class="n">category</span><span class="o">=</span><span class="p">[</span><span class="n">category</span><span class="p">],</span>
-<span class="g g-Whitespace">    </span><span class="mi">100</span>         <span class="n">indicators</span><span class="o">=</span><span class="n">indicators</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">101</span>         <span class="n">disaggregate</span><span class="o">=</span><span class="n">disaggregate</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">102</span>         <span class="n">json_filepath</span><span class="o">=</span><span class="n">idfilepath</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">103</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">104</span>     <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">base_url</span>
-<span class="g g-Whitespace">    </span><span class="mi">105</span>     <span class="bp">self</span><span class="o">.</span><span class="n">auth</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">auth</span>
-
-<span class="ne">TypeError</span>: GenerateParams.__init__() got an unexpected keyword argument &#39;json_filepath&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ownloading sierraleone: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 16/16 [01:32&lt;00:00,  5.80s/it]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./sierraleone_08-07-2025.csv&quot;</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;dataid&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./sierraleone_08-08-2025.csv&quot;</span><span class="p">)</span>
+<span class="n">sum_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;dataid&quot;</span><span class="p">)[</span><span class="s2">&quot;Total&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">sum_df</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;F5DCeEkMZbP&#39;, &#39;F63VoBCwxxX&#39;, &#39;iRb8yr8WXX5&#39;, &#39;JTZbSlVJnmv&#39;,
-       &#39;n0lUlnuMZFi&#39;, &#39;Q1MX1awbz1h&#39;, &#39;qHuKf5ALBDx&#39;, &#39;Ra0KDOCDTBb&#39;,
-       &#39;roLRNJvsp6f&#39;, &#39;grudkdawI9h&#39;, &#39;UNNPnnylzkn&#39;, &#39;XtpblNP6IIf&#39;,
-       &#39;W2eW51uqgPP&#39;, &#39;TVOY9C29ikm&#39;, &#39;yL2yw27eKfR&#39;], dtype=object)
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dataid</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>F5DCeEkMZbP</td>
+      <td>23905.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>F63VoBCwxxX</td>
+      <td>25406.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>JTZbSlVJnmv</td>
+      <td>187181.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Q1MX1awbz1h</td>
+      <td>5695.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Ra0KDOCDTBb</td>
+      <td>7527.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>TVOY9C29ikm</td>
+      <td>3208.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>UNNPnnylzkn</td>
+      <td>935.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>W2eW51uqgPP</td>
+      <td>16844.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>XtpblNP6IIf</td>
+      <td>16.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>grudkdawI9h</td>
+      <td>19841.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>iRb8yr8WXX5</td>
+      <td>32959.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>n0lUlnuMZFi</td>
+      <td>585541.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>qHuKf5ALBDx</td>
+      <td>20647.0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>roLRNJvsp6f</td>
+      <td>14788.0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>yL2yw27eKfR</td>
+      <td>26674.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 <section id="direct-using-pre-loaded-json-file">
@@ -642,18 +706,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-08-07 23:49:20,898 - INFO - Starting download for sierraleone (1 params)
-
-2025-08-07 23:49:31,100 - INFO - Saved 1343 rows to ./sierraleone_08-07-2025.csv
-2025-08-07 23:49:31,112 - INFO - All indicators downloaded successfully.
-.16s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ownloading sierraleone: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:05&lt;00:00,  5.75s/it]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./sierraleone_08-07-2025.csv&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./sierraleone_08-08-2025.csv&quot;</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -719,7 +779,7 @@ document.write(`
       <td>PENTA_DOSE3</td>
       <td>NaN</td>
       <td>108.0</td>
-      <td>08-07-2025</td>
+      <td>08-08-2025</td>
     </tr>
     <tr>
       <th>1</th>
@@ -741,7 +801,7 @@ document.write(`
       <td>PENTA_DOSE3</td>
       <td>NaN</td>
       <td>34.0</td>
-      <td>08-07-2025</td>
+      <td>08-08-2025</td>
     </tr>
     <tr>
       <th>2</th>
@@ -763,7 +823,7 @@ document.write(`
       <td>PENTA_DOSE3</td>
       <td>NaN</td>
       <td>40.0</td>
-      <td>08-07-2025</td>
+      <td>08-08-2025</td>
     </tr>
     <tr>
       <th>3</th>
@@ -785,7 +845,7 @@ document.write(`
       <td>PENTA_DOSE3</td>
       <td>NaN</td>
       <td>25.0</td>
-      <td>08-07-2025</td>
+      <td>08-08-2025</td>
     </tr>
     <tr>
       <th>4</th>
@@ -807,7 +867,7 @@ document.write(`
       <td>PENTA_DOSE3</td>
       <td>NaN</td>
       <td>16.0</td>
-      <td>08-07-2025</td>
+      <td>08-08-2025</td>
     </tr>
   </tbody>
 </table>
