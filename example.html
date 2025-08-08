@@ -410,10 +410,10 @@ document.write(`
 <h2>Using Prepared JSON-id Files<a class="headerlink" href="#using-prepared-json-id-files" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;../&quot;</span><span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dhis2api.country</span><span class="w"> </span><span class="kn">import</span> <span class="n">Country</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
@@ -421,15 +421,10 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">json_fp</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/JsonSelection_All_DataElements.xlsx&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">json_fp</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/../JsonSelection_All_DataElements.xlsx&quot;</span>
 <span class="n">json_id_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">json_fp</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">json_id_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 </pre></div>
@@ -574,18 +569,44 @@ document.write(`
                       <span class="n">base_url</span><span class="o">=</span> <span class="s1">&#39;https://sl.dhis2.org/hmis/api/29/analytics.json?&#39;</span><span class="p">,</span> 
                       <span class="n">dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;202201&quot;</span><span class="p">],</span> <span class="n">level</span><span class="o">=</span><span class="s2">&quot;LEVEL-5&quot;</span><span class="p">,</span>
                       <span class="n">auth</span><span class="o">=</span><span class="n">SLAuth</span><span class="p">,</span>
-                      <span class="n">json_filepath</span><span class="o">=</span><span class="n">json_fp</span><span class="p">)</span>
+                      <span class="n">idfilepath</span><span class="o">=</span><span class="n">json_fp</span><span class="p">)</span>
 <span class="n">country_obj</span><span class="o">.</span><span class="n">request_and_save</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-08-07 23:46:34,501 - INFO - Starting download for sierraleone (16 params)
-2025-08-07 23:48:03,960 - ERROR - [10] HTTP 500 for params: {&#39;dimension&#39;: [&#39;ou:LEVEL-5&#39;, &#39;pe:202201&#39;, &#39;dx:TDbfmbsHSIj&#39;], &#39;displayProperty&#39;: &#39;NAME&#39;, &#39;ignoreLimit&#39;: &#39;TRUE&#39;, &#39;hierarchyMeta&#39;: &#39;TRUE&#39;, &#39;hideEmptyRows&#39;: &#39;TRUE&#39;, &#39;showHierarchy&#39;: &#39;TRUE&#39;, &#39;rows&#39;: &#39;ou;pe;dx&#39;}
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">SLAuth</span> <span class="o">=</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SLUsername&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SLPassword&quot;</span><span class="p">))</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">country_obj</span> <span class="o">=</span> <span class="n">Country</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s2">&quot;sierraleone&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                       <span class="n">base_url</span><span class="o">=</span> <span class="s1">&#39;https://sl.dhis2.org/hmis/api/29/analytics.json?&#39;</span><span class="p">,</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                       <span class="n">dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;202201&quot;</span><span class="p">],</span> <span class="n">level</span><span class="o">=</span><span class="s2">&quot;LEVEL-5&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                       <span class="n">auth</span><span class="o">=</span><span class="n">SLAuth</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>                       <span class="n">idfilepath</span><span class="o">=</span><span class="n">json_fp</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">country_obj</span><span class="o">.</span><span class="n">request_and_save</span><span class="p">()</span>
 
-2025-08-07 23:49:13,836 - INFO - Saved 15273 rows to ./sierraleone_08-07-2025.csv
-2025-08-07 23:49:13,866 - WARNING - Missing indicators: TDbfmbsHSIj
-,  9.95s/it]
+<span class="nn">File /opt/homebrew/lib/python3.11/site-packages/dhis2api/country.py:95,</span> in <span class="ni">Country.__init__</span><span class="nt">(self, base_url, country, dates, level, folderpath, category, indicators, disaggregate, auth, idfilepath, max_workers)</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>     <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">92</span>     <span class="n">max_workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">93</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">94</span>     <span class="bp">self</span><span class="o">.</span><span class="n">country</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">country</span>
+<span class="ne">---&gt; </span><span class="mi">95</span>     <span class="bp">self</span><span class="o">.</span><span class="n">generate_params</span> <span class="o">=</span> <span class="n">GenerateParams</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">96</span>         <span class="n">country</span><span class="o">=</span><span class="n">country</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span>         <span class="n">dates</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>         <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span>         <span class="n">category</span><span class="o">=</span><span class="p">[</span><span class="n">category</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">100</span>         <span class="n">indicators</span><span class="o">=</span><span class="n">indicators</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">101</span>         <span class="n">disaggregate</span><span class="o">=</span><span class="n">disaggregate</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">102</span>         <span class="n">json_filepath</span><span class="o">=</span><span class="n">idfilepath</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">103</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">104</span>     <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">base_url</span>
+<span class="g g-Whitespace">    </span><span class="mi">105</span>     <span class="bp">self</span><span class="o">.</span><span class="n">auth</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">auth</span>
+
+<span class="ne">TypeError</span>: GenerateParams.__init__() got an unexpected keyword argument &#39;json_filepath&#39;
 </pre></div>
 </div>
 </div>
