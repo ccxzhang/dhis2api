@@ -99,7 +99,7 @@ class Country:
             category=[category],
             indicators=indicators,
             disaggregate=disaggregate,
-            json_filepath=idfilepath,
+            idfilepath=idfilepath,
         )
         self.base_url: str = base_url
         self.auth: Optional[Tuple[str, str]] = auth
