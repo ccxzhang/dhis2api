@@ -393,7 +393,13 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dhis2api">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country"><code class="docutils literal notranslate"><span class="pre">Country</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country.request_and_save"><code class="docutils literal notranslate"><span class="pre">Country.request_and_save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -411,15 +417,146 @@ document.write(`
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="dhis2api.country.html">dhis2api.country module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dhis2api.generate_params.html">dhis2api.generate_params module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dhis2api.indicator_loader.html">dhis2api.indicator_loader module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dhis2api.param_formatter.html">dhis2api.param_formatter module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dhis2api.country.html">dhis2api.country module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dhis2api.country.html#dhis2api.country.Country"><code class="docutils literal notranslate"><span class="pre">Country</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dhis2api.country.html#dhis2api.country.Country.request_and_save"><code class="docutils literal notranslate"><span class="pre">Country.request_and_save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dhis2api.generate_params.html">dhis2api.generate_params module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dhis2api.generate_params.html#dhis2api.generate_params.GenerateParams"><code class="docutils literal notranslate"><span class="pre">GenerateParams</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dhis2api.generate_params.html#dhis2api.generate_params.GenerateParams.get_params"><code class="docutils literal notranslate"><span class="pre">GenerateParams.get_params()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dhis2api.generate_params.html#dhis2api.generate_params.GenerateParams.split_params"><code class="docutils literal notranslate"><span class="pre">GenerateParams.split_params()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dhis2api.indicator_loader.html">dhis2api.indicator_loader module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dhis2api.indicator_loader.html#dhis2api.indicator_loader.IndicatorLoader"><code class="docutils literal notranslate"><span class="pre">IndicatorLoader</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dhis2api.indicator_loader.html#dhis2api.indicator_loader.IndicatorLoader.load_indicators_from_file"><code class="docutils literal notranslate"><span class="pre">IndicatorLoader.load_indicators_from_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dhis2api.param_formatter.html">dhis2api.param_formatter module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dhis2api.param_formatter.html#dhis2api.param_formatter.ParamFormatter"><code class="docutils literal notranslate"><span class="pre">ParamFormatter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dhis2api.param_formatter.html#dhis2api.param_formatter.ParamFormatter.format_disaggregate_elems"><code class="docutils literal notranslate"><span class="pre">ParamFormatter.format_disaggregate_elems()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dhis2api.param_formatter.html#dhis2api.param_formatter.ParamFormatter.format_params"><code class="docutils literal notranslate"><span class="pre">ParamFormatter.format_params()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
+<section id="module-dhis2api">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dhis2api" title="Permalink to this heading">#</a></h2>
+<p>Convenience imports and package metadata for <a class="reference internal" href="#module-dhis2api" title="dhis2api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">dhis2api</span></code></a>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="dhis2api.Country">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dhis2api.</span></span><span class="sig-name descname"><span class="pre">Country</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folderpath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'core'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indicators</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disaggregate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idfilepath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dhis2api.Country" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Fetch and store country-level data from an API with controlled parallelism.</p>
+<p>Generates API query parameters via <code class="docutils literal notranslate"><span class="pre">GenerateParams</span></code>, performs parallel GET
+requests with a bounded number of workers, aggregates results in memory,
+writes a single CSV, and validates that all requested indicators were
+retrieved.</p>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">#</a></h3>
+<dl class="simple">
+<dt>base_url<span class="classifier">str</span></dt><dd><p>Base API endpoint for requests.</p>
+</dd>
+<dt>country<span class="classifier">str</span></dt><dd><p>Country code or identifier (also used in output filename).</p>
+</dd>
+<dt>dates<span class="classifier">list[str]</span></dt><dd><p>Date string consumed by the API.</p>
+</dd>
+<dt>level<span class="classifier">str, optional</span></dt><dd><p>Geographic/administrative level to request.</p>
+</dd>
+<dt>folderpath<span class="classifier">str, optional</span></dt><dd><p>Directory path to save the output CSV. Defaults to current directory.</p>
+</dd>
+<dt>category<span class="classifier">str, default “core”</span></dt><dd><p>Data category to request (forwarded to <code class="docutils literal notranslate"><span class="pre">GenerateParams</span></code>).</p>
+</dd>
+<dt>indicators<span class="classifier">list[str], optional</span></dt><dd><p>Indicator codes to request (forwarded to <code class="docutils literal notranslate"><span class="pre">GenerateParams</span></code>).</p>
+</dd>
+<dt>disaggregate<span class="classifier">list[str], optional</span></dt><dd><p>Disaggregation dimensions (forwarded to <code class="docutils literal notranslate"><span class="pre">GenerateParams</span></code>).</p>
+</dd>
+<dt>auth<span class="classifier">tuple[str, str], optional</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">(username,</span> <span class="pre">password)</span></code> tuple for HTTP basic auth.</p>
+</dd>
+<dt>idfilepath<span class="classifier">str, optional</span></dt><dd><p>Path to an excel file used by <code class="docutils literal notranslate"><span class="pre">GenerateParams</span></code>.</p>
+</dd>
+<dt>max_workers<span class="classifier">int, default 5</span></dt><dd><p>Maximum number of concurrent HTTP requests.</p>
+</dd>
+</dl>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this heading">#</a></h3>
+<p>base_url : str
+country : str
+params : list[dict]</p>
+<blockquote>
+<div><p>List of parameter dictionaries used for each API request.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>disaggregate_name<span class="classifier">str</span></dt><dd><p>Concatenation of disaggregation keys used in file naming.</p>
+</dd>
+</dl>
+<p>folderpath : str
+max_workers : int
+filepath : str or None</p>
+<blockquote>
+<div><p>Output CSV path (set in <code class="docutils literal notranslate"><span class="pre">request_and_save</span></code>).</p>
+</div></blockquote>
+<dl class="simple">
+<dt>headers<span class="classifier">list[str] or None</span></dt><dd><p>Last-seen column names parsed from the API response.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="dhis2api.Country.request_and_save">
+<span class="sig-name descname"><span class="pre">request_and_save</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dhis2api.Country.request_and_save" title="Permalink to this definition">#</a></dt>
+<dd><p>Download data in parallel with a progress bar and write to CSV.</p>
+<p>Creates a timestamped output filename that includes the country and,
+if present, the disaggregation label. Issues multiple HTTP GET requests
+in parallel (bounded by <code class="docutils literal notranslate"><span class="pre">max_workers</span></code>), aggregates DataFrames in
+memory, writes a single CSV file, and validates downloaded indicators.</p>
+<section id="returns">
+<h4>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">#</a></h4>
+<p>None</p>
+</section>
+<section id="raises">
+<h4>Raises<a class="headerlink" href="#raises" title="Permalink to this heading">#</a></h4>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If no parameters are available for download.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_url</strong> (<em>str</em>) – </p></li>
+<li><p><strong>country</strong> (<em>str</em>) – </p></li>
+<li><p><strong>dates</strong> (<em>str</em>) – </p></li>
+<li><p><strong>level</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>folderpath</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>category</strong> (<em>str</em>) – </p></li>
+<li><p><strong>indicators</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>disaggregate</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>auth</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>idfilepath</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>max_workers</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -488,7 +625,13 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dhis2api">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country"><code class="docutils literal notranslate"><span class="pre">Country</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dhis2api.Country.request_and_save"><code class="docutils literal notranslate"><span class="pre">Country.request_and_save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
