@@ -391,8 +391,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-prepared-json-files">Using Prepared JSON Files</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-using">Direct Using</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-prepared-json-id-files">Using Prepared JSON-id Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-using-pre-loaded-json-file">Direct Using pre-loaded JSON file</a></li>
 </ul>
             </nav>
         </div>
@@ -406,15 +406,16 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="example">
 <h1>Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h1>
-<section id="using-prepared-json-files">
-<h2>Using Prepared JSON Files<a class="headerlink" href="#using-prepared-json-files" title="Permalink to this heading">#</a></h2>
+<section id="using-prepared-json-id-files">
+<h2>Using Prepared JSON-id Files<a class="headerlink" href="#using-prepared-json-id-files" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;../&quot;</span><span class="p">)</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;../&quot;</span><span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dhis2api.country</span><span class="w"> </span><span class="kn">import</span> <span class="n">Country</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
 <span class="n">load_dotenv</span><span class="p">()</span>
 </pre></div>
@@ -428,57 +429,186 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">json_fp</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/JsonSelection_All_DataElements.xlsx&quot;</span>
+<span class="n">json_id_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">json_fp</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">json_id_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>id</th>
+      <th>displayName</th>
+      <th>group</th>
+      <th>count or percentage</th>
+      <th>category</th>
+      <th>category_old</th>
+      <th>indicatortype</th>
+      <th>project</th>
+      <th>initiation</th>
+      <th>pdo</th>
+      <th>notes</th>
+      <th>Core</th>
+      <th>Annual report</th>
+      <th>Used Previously</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>afghanistan</td>
+      <td>A0D0ThB17vR</td>
+      <td>NMC-GEN- Functionality of electricity source a...</td>
+      <td>dataElements</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>afghanistan</td>
+      <td>a0iYmnDD2RH</td>
+      <td>Cleft palate and cleft lip/ref</td>
+      <td>dataElements</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>afghanistan</td>
+      <td>A0NYImqKtiU</td>
+      <td>GBV- Willingness to take legal action against ...</td>
+      <td>dataElements</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>afghanistan</td>
+      <td>a0v6xlpNqwE</td>
+      <td>TBIS- Percentage of HIV positive new and relap...</td>
+      <td>indicators</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>afghanistan</td>
+      <td>a0ZLbjWKGZq</td>
+      <td>HIS- Percentage of CHCs with ambulance transpo...</td>
+      <td>indicators</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SLAuth</span> <span class="o">=</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SLUsername&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;SLPassword&quot;</span><span class="p">))</span>
 
 <span class="n">country_obj</span> <span class="o">=</span> <span class="n">Country</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s2">&quot;sierraleone&quot;</span><span class="p">,</span>
                       <span class="n">base_url</span><span class="o">=</span> <span class="s1">&#39;https://sl.dhis2.org/hmis/api/29/analytics.json?&#39;</span><span class="p">,</span> 
                       <span class="n">dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;202201&quot;</span><span class="p">],</span> <span class="n">level</span><span class="o">=</span><span class="s2">&quot;LEVEL-5&quot;</span><span class="p">,</span>
                       <span class="n">auth</span><span class="o">=</span><span class="n">SLAuth</span><span class="p">,</span>
-                      <span class="n">json_filepath</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/JsonSelection_All_DataElements.xlsx&quot;</span><span class="p">)</span>
+                      <span class="n">json_filepath</span><span class="o">=</span><span class="n">json_fp</span><span class="p">)</span>
 <span class="n">country_obj</span><span class="o">.</span><span class="n">request_and_save</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-08-04 14:35:58,119 - INFO - 0: Data downloaded successfully
-2025-08-04 14:36:00,317 - INFO - 1: Data downloaded successfully
-2025-08-04 14:36:14,729 - INFO - 2: Data downloaded successfully
-2025-08-04 14:36:17,008 - INFO - 3: Data downloaded successfully
-2025-08-04 14:36:19,326 - INFO - 4: Data downloaded successfully
-2025-08-04 14:36:21,692 - INFO - 5: Data downloaded successfully
-2025-08-04 14:36:32,155 - INFO - 6: Data downloaded successfully
-2025-08-04 14:36:42,286 - INFO - 7: Data downloaded successfully
-2025-08-04 14:36:49,890 - INFO - 8: Data downloaded successfully
-2025-08-04 14:36:51,934 - INFO - 9: Data downloaded successfully
-2025-08-04 14:36:53,311 - ERROR - 10: Error 500 fetching data for pe:202201-dx:TDbfmbsHSIj
-2025-08-04 14:36:58,069 - INFO - 11: Data downloaded successfully
-2025-08-04 14:37:00,701 - INFO - 12: Data downloaded successfully
-2025-08-04 14:37:02,849 - INFO - 13: Data downloaded successfully
-2025-08-04 14:37:04,708 - INFO - 14: Data downloaded successfully
-2025-08-04 14:37:13,413 - INFO - 15: Data downloaded successfully
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-08-07 23:46:34,501 - INFO - Starting download for sierraleone (16 params)
+2025-08-07 23:48:03,960 - ERROR - [10] HTTP 500 for params: {&#39;dimension&#39;: [&#39;ou:LEVEL-5&#39;, &#39;pe:202201&#39;, &#39;dx:TDbfmbsHSIj&#39;], &#39;displayProperty&#39;: &#39;NAME&#39;, &#39;ignoreLimit&#39;: &#39;TRUE&#39;, &#39;hierarchyMeta&#39;: &#39;TRUE&#39;, &#39;hideEmptyRows&#39;: &#39;TRUE&#39;, &#39;showHierarchy&#39;: &#39;TRUE&#39;, &#39;rows&#39;: &#39;ou;pe;dx&#39;}
+
+2025-08-07 23:49:13,836 - INFO - Saved 15273 rows to ./sierraleone_08-07-2025.csv
+2025-08-07 23:49:13,866 - WARNING - Missing indicators: TDbfmbsHSIj
+,  9.95s/it]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./sierraleone_08-04-2025.csv&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./sierraleone_08-07-2025.csv&quot;</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s2">&quot;dataid&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;F5DCeEkMZbP&#39;, &#39;F63VoBCwxxX&#39;, &#39;grudkdawI9h&#39;, &#39;iRb8yr8WXX5&#39;,
-       &#39;JTZbSlVJnmv&#39;, &#39;n0lUlnuMZFi&#39;, &#39;Q1MX1awbz1h&#39;, &#39;qHuKf5ALBDx&#39;,
-       &#39;Ra0KDOCDTBb&#39;, &#39;roLRNJvsp6f&#39;, &#39;TVOY9C29ikm&#39;, &#39;UNNPnnylzkn&#39;,
-       &#39;W2eW51uqgPP&#39;, &#39;XtpblNP6IIf&#39;, &#39;yL2yw27eKfR&#39;], dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;F5DCeEkMZbP&#39;, &#39;F63VoBCwxxX&#39;, &#39;iRb8yr8WXX5&#39;, &#39;JTZbSlVJnmv&#39;,
+       &#39;n0lUlnuMZFi&#39;, &#39;Q1MX1awbz1h&#39;, &#39;qHuKf5ALBDx&#39;, &#39;Ra0KDOCDTBb&#39;,
+       &#39;roLRNJvsp6f&#39;, &#39;grudkdawI9h&#39;, &#39;UNNPnnylzkn&#39;, &#39;XtpblNP6IIf&#39;,
+       &#39;W2eW51uqgPP&#39;, &#39;TVOY9C29ikm&#39;, &#39;yL2yw27eKfR&#39;], dtype=object)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="direct-using">
-<h2>Direct Using<a class="headerlink" href="#direct-using" title="Permalink to this heading">#</a></h2>
+<section id="direct-using-pre-loaded-json-file">
+<h2>Direct Using pre-loaded JSON file<a class="headerlink" href="#direct-using-pre-loaded-json-file" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">single_download</span> <span class="o">=</span> <span class="n">Country</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s2">&quot;sierraleone&quot;</span><span class="p">,</span>
@@ -491,14 +621,18 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-08-04 14:40:45,419 - INFO - 0: Data downloaded successfully
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-08-07 23:49:20,898 - INFO - Starting download for sierraleone (1 params)
+
+2025-08-07 23:49:31,100 - INFO - Saved 1343 rows to ./sierraleone_08-07-2025.csv
+2025-08-07 23:49:31,112 - INFO - All indicators downloaded successfully.
+.16s/it]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./sierraleone_08-04-2025.csv&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./sierraleone_08-07-2025.csv&quot;</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -564,7 +698,7 @@ document.write(`
       <td>PENTA_DOSE3</td>
       <td>NaN</td>
       <td>108.0</td>
-      <td>08-04-2025</td>
+      <td>08-07-2025</td>
     </tr>
     <tr>
       <th>1</th>
@@ -586,7 +720,7 @@ document.write(`
       <td>PENTA_DOSE3</td>
       <td>NaN</td>
       <td>34.0</td>
-      <td>08-04-2025</td>
+      <td>08-07-2025</td>
     </tr>
     <tr>
       <th>2</th>
@@ -608,7 +742,7 @@ document.write(`
       <td>PENTA_DOSE3</td>
       <td>NaN</td>
       <td>40.0</td>
-      <td>08-04-2025</td>
+      <td>08-07-2025</td>
     </tr>
     <tr>
       <th>3</th>
@@ -630,7 +764,7 @@ document.write(`
       <td>PENTA_DOSE3</td>
       <td>NaN</td>
       <td>25.0</td>
-      <td>08-04-2025</td>
+      <td>08-07-2025</td>
     </tr>
     <tr>
       <th>4</th>
@@ -652,7 +786,7 @@ document.write(`
       <td>PENTA_DOSE3</td>
       <td>NaN</td>
       <td>16.0</td>
-      <td>08-04-2025</td>
+      <td>08-07-2025</td>
     </tr>
   </tbody>
 </table>
@@ -670,16 +804,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "po"
+            mode: "python"
         },
         kernelOptions: {
-            name: "po",
+            name: "python3_homebrew",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'po'</script>
+    <script>kernelName = 'python3_homebrew'</script>
 
                 </article>
               
@@ -716,8 +850,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-prepared-json-files">Using Prepared JSON Files</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-using">Direct Using</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-prepared-json-id-files">Using Prepared JSON-id Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-using-pre-loaded-json-file">Direct Using pre-loaded JSON file</a></li>
 </ul>
   </nav></div>
 
