@@ -393,6 +393,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-prepared-json-id-files">Using Prepared JSON-id Files</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-using-pre-loaded-json-file">Direct Using pre-loaded JSON file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disaggregation">Disaggregation</a></li>
 </ul>
             </nav>
         </div>
@@ -418,6 +419,15 @@ document.write(`
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
 <span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%m-</span><span class="si">%d</span><span class="s2">-%Y&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -575,14 +585,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ownloading sierraleone: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 16/16 [01:32&lt;00:00,  5.80s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ownloading sierraleone: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 16/16 [00:17&lt;00:00,  1.12s/it]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./sierraleone_08-08-2025.csv&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./sierraleone_</span><span class="si">{</span><span class="n">today</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">)</span>
 <span class="n">sum_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;dataid&quot;</span><span class="p">)[</span><span class="s2">&quot;Total&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="n">display</span><span class="p">(</span><span class="n">sum_df</span><span class="p">)</span>
 </pre></div>
@@ -706,15 +716,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ownloading sierraleone: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:05&lt;00:00,  5.75s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ownloading sierraleone: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:02&lt;00:00,  2.02s/it]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./sierraleone_08-08-2025.csv&quot;</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">single_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./sierraleone_</span><span class="si">{</span><span class="n">today</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">)</span>
+<span class="n">single_sum_df</span> <span class="o">=</span> <span class="n">single_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;dataid&quot;</span><span class="p">)[</span><span class="s2">&quot;Total&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">single_sum_df</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -737,137 +748,112 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>orgunitlevel1</th>
-      <th>orgunitlevel2</th>
-      <th>orgunitlevel3</th>
-      <th>orgunitlevel4</th>
-      <th>orgunitlevel5</th>
-      <th>organisationunitid</th>
-      <th>organisationunitname</th>
-      <th>organisationunitcode</th>
-      <th>organisationunitdescription</th>
-      <th>periodid</th>
-      <th>periodname</th>
-      <th>periodcode</th>
-      <th>perioddescription</th>
       <th>dataid</th>
-      <th>dataname</th>
-      <th>datacode</th>
-      <th>datadescription</th>
       <th>Total</th>
-      <th>date_downloaded</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>Sierra Leone</td>
-      <td>Western Area Urban District</td>
-      <td>Freetown City Council</td>
-      <td>West 3 Zone</td>
-      <td>Aberdeen Women Centre Hospital</td>
-      <td>dar4XkzRmN0</td>
-      <td>Aberdeen Women Centre Hospital</td>
-      <td>WAU-WE3-ABEH</td>
-      <td>NaN</td>
-      <td>202201</td>
-      <td>January 2022</td>
-      <td>202201</td>
-      <td>NaN</td>
       <td>F5DCeEkMZbP</td>
-      <td>Pentavalent 3rd dose</td>
-      <td>PENTA_DOSE3</td>
-      <td>NaN</td>
-      <td>108.0</td>
-      <td>08-08-2025</td>
+      <td>23905.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="disaggregation">
+<h2>Disaggregation<a class="headerlink" href="#disaggregation" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">disaggregate_dims</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;BUbWS5DCgXK&quot;</span><span class="p">,</span> <span class="s2">&quot;nB1SNlTWQJQ&quot;</span><span class="p">]</span>
+
+<span class="n">disaggregate_download</span> <span class="o">=</span> <span class="n">Country</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s2">&quot;sierraleone&quot;</span><span class="p">,</span>
+                                <span class="n">base_url</span><span class="o">=</span> <span class="s1">&#39;https://sl.dhis2.org/hmis/api/29/analytics.json?&#39;</span><span class="p">,</span> 
+                                <span class="n">dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;202201&quot;</span><span class="p">],</span> <span class="n">level</span><span class="o">=</span><span class="s2">&quot;LEVEL-5&quot;</span><span class="p">,</span>
+                                <span class="n">indicators</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;F5DCeEkMZbP&quot;</span><span class="p">],</span>
+                                <span class="n">disaggregate</span><span class="o">=</span><span class="n">disaggregate_dims</span><span class="p">,</span>
+                                <span class="n">auth</span><span class="o">=</span><span class="n">SLAuth</span><span class="p">)</span>
+<span class="n">single_download</span><span class="o">.</span><span class="n">request_and_save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ownloading sierraleone: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:01&lt;00:00,  2.00s/it]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dis_id_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">disaggregate_dims</span><span class="p">)</span>
+<span class="n">disaggregate_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./sierraleone_</span><span class="si">{</span><span class="n">dis_id_str</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">today</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">)</span>
+
+<span class="c1">## Group by service point and age</span>
+<span class="n">double_disaggregate_df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">disaggregate_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;dataid&quot;</span><span class="p">,</span> <span class="s2">&quot;nB1SNlTWQJQname&quot;</span><span class="p">,</span> <span class="s2">&quot;BUbWS5DCgXKname&quot;</span><span class="p">])[</span><span class="s2">&quot;Total&quot;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">double_disaggregate_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dataid</th>
+      <th>nB1SNlTWQJQname</th>
+      <th>BUbWS5DCgXKname</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>F5DCeEkMZbP</td>
+      <td>In_Facility_X</td>
+      <td>0-11m_X</td>
+      <td>18149.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>Sierra Leone</td>
-      <td>Western Area Urban District</td>
-      <td>Freetown City Council</td>
-      <td>East 3 Zone</td>
-      <td>Ad-Bangs Quarry MCHP</td>
-      <td>Dq86w8tvw1h</td>
-      <td>Ad-Bangs Quarry MCHP</td>
-      <td>WAU-EA3-ADBM</td>
-      <td>NaN</td>
-      <td>202201</td>
-      <td>January 2022</td>
-      <td>202201</td>
-      <td>NaN</td>
       <td>F5DCeEkMZbP</td>
-      <td>Pentavalent 3rd dose</td>
-      <td>PENTA_DOSE3</td>
-      <td>NaN</td>
-      <td>34.0</td>
-      <td>08-08-2025</td>
+      <td>In_Facility_X</td>
+      <td>12-59m_X</td>
+      <td>107.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>Sierra Leone</td>
-      <td>Kono District</td>
-      <td>Koidu New Sembehun City Council</td>
-      <td>Koidu New Sembehun City</td>
-      <td>Adama Martha Memorial CHC</td>
-      <td>waE3sdkY7ha</td>
-      <td>Adama Martha Memorial CHC</td>
-      <td>KON-KOC-ADAC</td>
-      <td>NaN</td>
-      <td>202201</td>
-      <td>January 2022</td>
-      <td>202201</td>
-      <td>NaN</td>
       <td>F5DCeEkMZbP</td>
-      <td>Pentavalent 3rd dose</td>
-      <td>PENTA_DOSE3</td>
-      <td>NaN</td>
-      <td>40.0</td>
-      <td>08-08-2025</td>
+      <td>Outreach_X</td>
+      <td>0-11m_X</td>
+      <td>5534.0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>Sierra Leone</td>
-      <td>Western Area Rural District</td>
-      <td>Western Area Rural District Council</td>
-      <td>York Rural Zone</td>
-      <td>Adonkia CHP</td>
-      <td>OWlc4mW2hSs</td>
-      <td>Adonkia CHP</td>
-      <td>WAR-YOR-ADOP</td>
-      <td>NaN</td>
-      <td>202201</td>
-      <td>January 2022</td>
-      <td>202201</td>
-      <td>NaN</td>
       <td>F5DCeEkMZbP</td>
-      <td>Pentavalent 3rd dose</td>
-      <td>PENTA_DOSE3</td>
-      <td>NaN</td>
-      <td>25.0</td>
-      <td>08-08-2025</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Sierra Leone</td>
-      <td>Bo District</td>
-      <td>Bo City Council</td>
-      <td>Bo City</td>
-      <td>Aethel CHP</td>
-      <td>TYTDJOikSBa</td>
-      <td>Aethel CHP</td>
-      <td>BOO-BOC-ETHP</td>
-      <td>Structure built by private individual but 100%...</td>
-      <td>202201</td>
-      <td>January 2022</td>
-      <td>202201</td>
-      <td>NaN</td>
-      <td>F5DCeEkMZbP</td>
-      <td>Pentavalent 3rd dose</td>
-      <td>PENTA_DOSE3</td>
-      <td>NaN</td>
-      <td>16.0</td>
-      <td>08-08-2025</td>
+      <td>Outreach_X</td>
+      <td>12-59m_X</td>
+      <td>115.0</td>
     </tr>
   </tbody>
 </table>
@@ -933,6 +919,7 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-prepared-json-id-files">Using Prepared JSON-id Files</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-using-pre-loaded-json-file">Direct Using pre-loaded JSON file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disaggregation">Disaggregation</a></li>
 </ul>
   </nav></div>
 
