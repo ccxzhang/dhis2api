@@ -7,14 +7,14 @@ saved once as a single CSV, and validated against requested indicators.
 
 from __future__ import annotations
 
-import os
 import logging
+import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple
 
 import pandas as pd
 import requests
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
 
 from .generate_params import GenerateParams
@@ -60,6 +60,8 @@ class Country:
         Path to an excel file used by ``GenerateParams``.
     max_workers : int, default 5
         Maximum number of concurrent HTTP requests.
+    timeout : int, default 30
+        Timeout in seconds for each HTTP request.
 
     Attributes
     ----------
@@ -90,6 +92,7 @@ class Country:
         auth: Optional[Tuple[str, str]] = None,
         idfilepath: Optional[str] = None,
         max_workers: int = 5,
+        timeout: int = 300,
     ) -> None:
         self.country: str = country
         self.generate_params = GenerateParams(
@@ -111,6 +114,7 @@ class Country:
         self.max_workers: int = max_workers
         self.filepath: Optional[str] = None
         self.headers: Optional[List[str]] = None
+        self.timeout: int = timeout
 
     def request_and_save(self) -> None:
         """
@@ -190,7 +194,7 @@ class Country:
         """
         try:
             response = requests.get(
-                self.base_url, params=param, auth=self.auth, timeout=300)
+                self.base_url, params=param, auth=self.auth, timeout=self.timeout)
             if response.status_code == 200:
                 return idx, self._parse_response(response, today)
             logger.error("[%d] HTTP %d for params: %s",
